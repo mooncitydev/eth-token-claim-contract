@@ -7,15 +7,15 @@ async function main() {
     console.log("Deploying contracts with account:", deployer.address);
     console.log("Account balance:", (await deployer.provider.getBalance(deployer.address)).toString());
 
-    const VestingTokenClaim = await ethers.getContractFactory("VestingTokenClaim");
-    const vestingTokenClaim = await VestingTokenClaim.deploy(
+    const Airdrop = await ethers.getContractFactory("Airdrop");
+    const airdrop = await Airdrop.deploy(
         process.env.TOKEN_CONTRACT,           // Token address
         "0x0A5b28689FF9A846844FF141828773D170107198",               // backendwallet
-        1748444400     //5/28/utc3pm
+        1748444400     //5/18/utc3pm
     );
 
-    await vestingTokenClaim.waitForDeployment();
-    const address = await vestingTokenClaim.getAddress();
+    await airdrop.waitForDeployment();
+    const address = await airdrop.getAddress();
 
     console.log("Token deployed to:", address);
 
