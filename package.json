@@ -1,0 +1,4 @@
+{
+  "name": "token-claim-contract",
+  "version": "2.0.0",
+  "description": "Secure ERC20 token claim contract with signature-based authentication",
