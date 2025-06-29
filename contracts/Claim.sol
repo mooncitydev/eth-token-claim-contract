@@ -20,3 +20,25 @@ contract Claim is Ownable, ReentrancyGuard {
 
     // Events
     event TokensClaimed(
+        address indexed recipient,
+        uint256 amount,
+        bytes32 indexed messageHash
+    );
+    event BackendWalletUpdated(
+        address indexed oldWallet,
+        address indexed newWallet
+    );
+
+    event TokenAddressUpdated(
+        address indexed oldToken,
+        address indexed newToken
+    );
+
+    // Signed message structure
+    struct ClaimData {
+        address recipient;
+        uint256 amount;
+        uint256 nonce;
+        uint256 deadline;
+    }
+
