@@ -25,3 +25,29 @@ describe("Claim Contract", function () {
     }
 
     describe("Deployment", function () {
+        it("Should set the correct token address", async function () {
+            const { claim, token } = await loadFixture(deployClaimFixture);
+            expect(await claim.token()).to.equal(await token.getAddress());
+        });
+
+        it("Should set the correct backend wallet", async function () {
+            const { claim, backendWallet } = await loadFixture(deployClaimFixture);
+            expect(await claim.backendWallet()).to.equal(backendWallet.address);
+        });
+
+        it("Should set the deployer as owner", async function () {
+            const { claim, owner } = await loadFixture(deployClaimFixture);
+            expect(await claim.owner()).to.equal(owner.address);
+        });
+
+        it("Should revert if token address is zero", async function () {
+            const { backendWallet } = await loadFixture(deployClaimFixture);
+            const Claim = await ethers.getContractFactory("Claim");
+            await expect(
+                Claim.deploy(ethers.ZeroAddress, backendWallet.address)
+            ).to.be.revertedWith("Invalid token address");
+        });
+
+        it("Should revert if backend wallet is zero", async function () {
+            const { token } = await loadFixture(deployClaimFixture);
+            const Claim = await ethers.getContractFactory("Claim");
