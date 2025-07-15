@@ -41,3 +41,24 @@ The contract implements a signature-based claim system where:
 
 The signed message contains:
 - `recipient`: Address of the token recipient
+- `amount`: Amount of tokens to claim
+- `nonce`: Unique identifier to prevent replay attacks
+- `deadline`: Timestamp after which the signature expires
+
+## 🔒 Security Features
+
+- **ReentrancyGuard**: Prevents reentrancy attacks
+- **SafeERC20**: Safe token transfers using OpenZeppelin's SafeERC20 library
+- **Signature Verification**: Cryptographic verification of backend signatures
+- **Ownable**: Access control for administrative functions
+- **Zero Address Checks**: Prevents invalid address assignments
+
+## 🚀 Installation
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Hardhat
+
+### Setup
