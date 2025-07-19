@@ -19,3 +19,13 @@ A production-ready, secure ERC20 token claim smart contract that enables signatu
 
 ### Key Features:
 - **Signature-Based Authentication**: Uses EIP-191 signed messages for secure token claims
+- **Replay Attack Prevention**: One-time use signatures prevent double-spending
+- **Time-Bound Claims**: Signature expiration mechanism for enhanced security
+- **Gas Optimized**: Efficient contract design using OpenZeppelin's battle-tested libraries
+- **Admin Controls**: Flexible management functions for token and backend wallet updates
+- **Emergency Withdraw**: Safety mechanism for contract owner
+
+### Use Cases:
+- Token airdrops and distributions
+- Reward programs
+- Token vesting and claim systems
