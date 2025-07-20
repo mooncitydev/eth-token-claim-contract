@@ -42,3 +42,25 @@ contract Claim is Ownable, ReentrancyGuard {
         uint256 deadline;
     }
 
+    constructor(address _token, address _backendWallet) {
+        require(_token != address(0), "Invalid token address");
+        require(_backendWallet != address(0), "Invalid backend wallet address");
+
+        token = IERC20(_token);
+        backendWallet = _backendWallet;
+    }
+
+    /**
+     * @dev Claim tokens based on backend signature
+     * @param amount Amount to claim
+     * @param nonce Unique nonce for this claim
+     * @param deadline Signature expiration timestamp
+     * @param signature Backend signature
+     */
+    function claimTokens(
+        uint256 amount,
+        uint256 nonce,
+        uint256 deadline,
+        bytes memory signature
+    ) external nonReentrant {
+        require(block.timestamp <= deadline, "Signature expired");
