@@ -8,3 +8,7 @@ async function main() {
     
     const balance = await ethers.provider.getBalance(deployer.address);
     console.log("Account balance:", ethers.formatEther(balance), "ETH");
+
+    // Validate environment variables
+    if (!process.env.TOKEN_CONTRACT) {
+        throw new Error("TOKEN_CONTRACT environment variable is not set");
