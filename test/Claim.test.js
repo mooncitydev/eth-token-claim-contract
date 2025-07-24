@@ -51,3 +51,29 @@ describe("Claim Contract", function () {
         it("Should revert if backend wallet is zero", async function () {
             const { token } = await loadFixture(deployClaimFixture);
             const Claim = await ethers.getContractFactory("Claim");
+            await expect(
+                Claim.deploy(await token.getAddress(), ethers.ZeroAddress)
+            ).to.be.revertedWith("Invalid backend wallet address");
+        });
+    });
+
+    describe("Token Claiming", function () {
+        it("Should allow user to claim tokens with valid signature", async function () {
+            const { claim, token, backendWallet, user } = await loadFixture(deployClaimFixture);
+            
+            const amount = ethers.parseUnits("100", 18);
+            const nonce = 1;
+            const deadline = Math.floor(Date.now() / 1000) + 3600; // 1 hour from now
+
+            // Create message hash (same as contract)
+            const packedData = ethers.solidityPacked(
+                ["address", "uint256", "uint256", "uint256"],
+                [user.address, amount, nonce, deadline]
+            );
+            const messageHash = ethers.keccak256(packedData);
+
+            // Sign message with backend wallet
+            const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
+
+            // Get initial balances
+            const initialUserBalance = await token.balanceOf(user.address);
