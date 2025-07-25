@@ -6,3 +6,6 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:sepolia": "hardhat run script/deployClaim.js --network sepolia",
+    "deploy:mainnet": "hardhat run script/deployClaim.js --network mainnet",
