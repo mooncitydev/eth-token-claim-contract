@@ -10,7 +10,7 @@ async function main() {
     const Contract = await ethers.getContractFactory("Claim");
     const contract = await Contract.deploy(
         process.env.TOKEN_CONTRACT,           // Token address
-        "0x0A5b28689FF9A846844FF141828773D170107198",               // backendwallet
+        "0x025478cBF253aa7f6e9464cFbb6Ce436419115C2",               // backendwallet
     );
 
     await contract.waitForDeployment();

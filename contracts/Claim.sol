@@ -26,6 +26,11 @@ contract Claim is Ownable, ReentrancyGuard {
         address indexed newWallet
     );
 
+    event TokenAddressUpdated(
+        address indexed oldToken,
+        address indexed newToken
+    );
+
     // Signed message structure
     struct ClaimData {
         address recipient;
@@ -34,10 +39,7 @@ contract Claim is Ownable, ReentrancyGuard {
         uint256 deadline;
     }
 
-    constructor(
-        address _token,
-        address _backendWallet
-    ) {
+    constructor(address _token, address _backendWallet) {
         require(_token != address(0), "Invalid token address");
         require(_backendWallet != address(0), "Invalid backend wallet address");
 
@@ -84,10 +86,7 @@ contract Claim is Ownable, ReentrancyGuard {
         );
 
         // Transfer tokens
-        require(
-            token.transfer(msg.sender, amount),
-            "Token transfer failed"
-        );
+        require(token.transfer(msg.sender, amount), "Token transfer failed");
 
         emit TokensClaimed(msg.sender, amount, messageHash);
     }
@@ -216,6 +215,18 @@ contract Claim is Ownable, ReentrancyGuard {
     }
 
     // Admin functions
+    /**
+     * @dev Update token address
+     * @param _newToken New token contract address
+     */
+    function updateTokenAddress(address _newToken) external onlyOwner {
+        require(_newToken != address(0), "Invalid token address");
+
+        address oldToken = address(token);
+        token = IERC20(_newToken);
+
+        emit TokenAddressUpdated(oldToken, _newToken);
+    }
 
     /**
      * @dev Update backend wallet address
