@@ -62,3 +62,24 @@ The signed message contains:
 - Hardhat
 
 ### Setup
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd claim_contract
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory:
+```env
+PRIVATE_KEY=your_private_key_here
+INFURA_PROJECT_ID=your_infura_project_id
+ETHERSCAN_API_KEY=your_etherscan_api_key
+TOKEN_CONTRACT=your_token_contract_address
+BACKEND_WALLET=your_backend_wallet_address
+```
+
