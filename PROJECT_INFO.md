@@ -29,3 +29,13 @@ A production-ready, secure ERC20 token claim smart contract that enables signatu
 - Token airdrops and distributions
 - Reward programs
 - Token vesting and claim systems
+- Whitelist-based token sales
+- Community rewards and incentives
+
+## 🏷️ Recommended GitHub Topics
+
+```
+ethereum
+solidity
+smart-contracts
+erc20
