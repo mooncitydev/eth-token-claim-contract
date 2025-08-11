@@ -64,3 +64,25 @@ contract Claim is Ownable, ReentrancyGuard {
         bytes memory signature
     ) external nonReentrant {
         require(block.timestamp <= deadline, "Signature expired");
+        require(amount > 0, "Amount must be greater than 0");
+
+        // Create claim data
+        ClaimData memory claimData = ClaimData({
+            recipient: msg.sender,
+            amount: amount,
+            nonce: nonce,
+            deadline: deadline
+        });
+
+        // Verify signature
+        bytes32 messageHash = _getMessageHash(claimData);
+        require(_verifySignature(messageHash, signature), "Invalid signature");
+
+        // Prevent reuse of the same signature
+        require(!usedSignatures[messageHash], "Signature already used");
+        usedSignatures[messageHash] = true;
+
+        // Check contract has enough tokens
+        require(
+            token.balanceOf(address(this)) >= amount,
+            "Insufficient contract balance"
