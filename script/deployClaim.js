@@ -12,3 +12,8 @@ async function main() {
     // Validate environment variables
     if (!process.env.TOKEN_CONTRACT) {
         throw new Error("TOKEN_CONTRACT environment variable is not set");
+    }
+    if (!process.env.BACKEND_WALLET) {
+        throw new Error("BACKEND_WALLET environment variable is not set");
+    }
+
