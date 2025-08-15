@@ -77,3 +77,30 @@ describe("Claim Contract", function () {
 
             // Get initial balances
             const initialUserBalance = await token.balanceOf(user.address);
+            const initialContractBalance = await token.balanceOf(await claim.getAddress());
+
+            // Claim tokens
+            await expect(claim.connect(user).claimTokens(amount, nonce, deadline, signature))
+                .to.emit(claim, "TokensClaimed")
+                .withArgs(user.address, amount, messageHash);
+
+            // Verify balances
+            expect(await token.balanceOf(user.address)).to.equal(initialUserBalance + amount);
+            expect(await token.balanceOf(await claim.getAddress())).to.equal(initialContractBalance - amount);
+        });
+
+        it("Should prevent reuse of the same signature", async function () {
+            const { claim, backendWallet, user } = await loadFixture(deployClaimFixture);
+            
+            const amount = ethers.parseUnits("100", 18);
+            const nonce = 2;
+            const deadline = Math.floor(Date.now() / 1000) + 3600;
+
+            const packedData = ethers.solidityPacked(
+                ["address", "uint256", "uint256", "uint256"],
+                [user.address, amount, nonce, deadline]
+            );
+            const messageHash = ethers.keccak256(packedData);
+            const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
+
+            // First claim should succeed
