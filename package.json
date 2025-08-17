@@ -9,3 +9,7 @@
     "test:coverage": "hardhat coverage",
     "deploy:sepolia": "hardhat run script/deployClaim.js --network sepolia",
     "deploy:mainnet": "hardhat run script/deployClaim.js --network mainnet",
+    "verify": "hardhat verify --network",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix"
+  },
