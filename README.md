@@ -83,3 +83,25 @@ TOKEN_CONTRACT=your_token_contract_address
 BACKEND_WALLET=your_backend_wallet_address
 ```
 
+## ⚙️ Configuration
+
+### Environment Variables
+
+- `PRIVATE_KEY`: Private key of the deployer account
+- `INFURA_PROJECT_ID`: Infura project ID for RPC access
+- `ETHERSCAN_API_KEY`: Etherscan API key for contract verification
+- `TOKEN_CONTRACT`: Address of the ERC20 token contract
+- `BACKEND_WALLET`: Address of the wallet that signs claim messages
+
+### Hardhat Configuration
+
+The project is configured for:
+- **Sepolia Testnet**: For testing deployments
+- **Ethereum Mainnet**: For production deployments
+
+Update `hardhat.config.js` to add additional networks if needed.
+
+## 📖 Usage
+
+### Compile Contracts
+
