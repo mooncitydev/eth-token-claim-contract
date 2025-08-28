@@ -39,3 +39,14 @@ ethereum
 solidity
 smart-contracts
 erc20
+token-claim
+signature-verification
+hardhat
+defi
+blockchain
+web3
+openzeppelin
+security
+cryptography
+eip-191
+token-distribution
