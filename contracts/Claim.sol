@@ -86,3 +86,25 @@ contract Claim is Ownable, ReentrancyGuard {
         require(
             token.balanceOf(address(this)) >= amount,
             "Insufficient contract balance"
+        );
+
+        // Transfer tokens using SafeERC20
+        token.safeTransfer(msg.sender, amount);
+
+        emit TokensClaimed(msg.sender, amount, messageHash);
+    }
+
+    /**
+     * @dev Get the hash of the claim data (same as backend)
+     * @param claimData The claim data struct
+     * @return bytes32 Hash of the claim data
+     */
+    function _getMessageHash(
+        ClaimData memory claimData
+    ) internal pure returns (bytes32) {
+        return
+            keccak256(
+                abi.encodePacked(
+                    claimData.recipient,
+                    claimData.amount,
+                    claimData.nonce,
