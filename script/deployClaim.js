@@ -17,3 +17,7 @@ async function main() {
         throw new Error("BACKEND_WALLET environment variable is not set");
     }
 
+    const tokenAddress = process.env.TOKEN_CONTRACT;
+    const backendWallet = process.env.BACKEND_WALLET;
+
+    // Validate addresses
