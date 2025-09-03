@@ -104,3 +104,29 @@ describe("Claim Contract", function () {
             const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
 
             // First claim should succeed
+            await claim.connect(user).claimTokens(amount, nonce, deadline, signature);
+
+            // Second claim with same signature should fail
+            await expect(
+                claim.connect(user).claimTokens(amount, nonce, deadline, signature)
+            ).to.be.revertedWith("Signature already used");
+        });
+
+        it("Should revert if signature is expired", async function () {
+            const { claim, backendWallet, user } = await loadFixture(deployClaimFixture);
+            
+            const amount = ethers.parseUnits("100", 18);
+            const nonce = 3;
+            const deadline = Math.floor(Date.now() / 1000) - 100; // Already expired
+
+            const packedData = ethers.solidityPacked(
+                ["address", "uint256", "uint256", "uint256"],
+                [user.address, amount, nonce, deadline]
+            );
+            const messageHash = ethers.keccak256(packedData);
+            const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
+
+            await expect(
+                claim.connect(user).claimTokens(amount, nonce, deadline, signature)
+            ).to.be.revertedWith("Signature expired");
+        });
