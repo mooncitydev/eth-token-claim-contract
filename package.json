@@ -13,3 +13,6 @@
     "lint": "solhint 'contracts/**/*.sol'",
     "lint:fix": "solhint 'contracts/**/*.sol' --fix"
   },
+  "keywords": [
+    "ethereum",
+    "solidity",
