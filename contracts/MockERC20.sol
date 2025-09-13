@@ -8,3 +8,5 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
  * @dev Simple ERC20 token for testing purposes
  */
 contract MockERC20 is ERC20 {
+    constructor(
+        string memory name,
