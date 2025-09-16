@@ -105,3 +105,24 @@ Update `hardhat.config.js` to add additional networks if needed.
 
 ### Compile Contracts
 
+```bash
+npm run compile
+```
+
+### Run Tests
+
+```bash
+npm test
+```
+
+### Deploy to Sepolia
+
+```bash
+npm run deploy:sepolia
+```
+
+### Deploy to Mainnet
+
+```bash
+npm run deploy:mainnet
+```
