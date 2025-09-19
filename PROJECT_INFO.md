@@ -50,3 +50,13 @@ security
 cryptography
 eip-191
 token-distribution
+airdrop
+```
+
+## 📊 Project Statistics
+
+- **Solidity Version**: 0.8.28
+- **OpenZeppelin Version**: 5.0.0
+- **Hardhat Version**: 2.24.1
+- **License**: MIT
+- **Test Coverage**: Comprehensive test suite included
