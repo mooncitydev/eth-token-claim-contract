@@ -108,3 +108,24 @@ contract Claim is Ownable, ReentrancyGuard {
                     claimData.recipient,
                     claimData.amount,
                     claimData.nonce,
+                    claimData.deadline
+                )
+            );
+    }
+
+    /**
+     * @dev Verify the backend signature
+     * @param messageHash Hash of the message
+     * @param signature The signature to verify
+     * @return bool True if signature is valid
+     */
+    function _verifySignature(
+        bytes32 messageHash,
+        bytes memory signature
+    ) internal view returns (bool) {
+        // Create Ethereum signed message hash
+        bytes32 ethSignedMessageHash = keccak256(
+            abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash)
+        );
+
+        // Recover signer from signature
