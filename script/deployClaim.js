@@ -21,3 +21,8 @@ async function main() {
     const backendWallet = process.env.BACKEND_WALLET;
 
     // Validate addresses
+    if (!ethers.isAddress(tokenAddress)) {
+        throw new Error("Invalid TOKEN_CONTRACT address");
+    }
+    if (!ethers.isAddress(backendWallet)) {
+        throw new Error("Invalid BACKEND_WALLET address");
