@@ -126,3 +126,24 @@ npm run deploy:sepolia
 ```bash
 npm run deploy:mainnet
 ```
+
+### Verify Contract
+
+```bash
+npx hardhat verify --network <network> <contract_address> <token_address> <backend_wallet_address>
+```
+
+## 🧪 Testing
+
+The test suite includes comprehensive coverage for:
+
+- Contract deployment and initialization
+- Token claiming with valid signatures
+- Signature replay prevention
+- Expiration handling
+- Invalid signature rejection
+- Admin functions
+- Access control
+
+Run tests with:
+```bash
