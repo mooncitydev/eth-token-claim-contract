@@ -60,3 +60,13 @@ airdrop
 - **Hardhat Version**: 2.24.1
 - **License**: MIT
 - **Test Coverage**: Comprehensive test suite included
+
+## 🔗 Repository Structure
+
+```
+claim_contract/
+├── contracts/
+│   ├── Claim.sol          # Main claim contract
+│   └── MockERC20.sol      # Mock token for testing
+├── test/
+│   └── Claim.test.js      # Comprehensive test suite
