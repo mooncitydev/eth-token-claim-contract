@@ -129,3 +129,25 @@ contract Claim is Ownable, ReentrancyGuard {
         );
 
         // Recover signer from signature
+        address recoveredSigner = _recoverSigner(
+            ethSignedMessageHash,
+            signature
+        );
+
+        // Verify signer is the backend wallet
+        return recoveredSigner == backendWallet;
+    }
+
+    /**
+     * @dev Recover signer address from signature
+     * @param hash The hash that was signed
+     * @param signature The signature
+     * @return address The recovered signer address
+     */
+    function _recoverSigner(
+        bytes32 hash,
+        bytes memory signature
+    ) internal pure returns (address) {
+        require(signature.length == 65, "Invalid signature length");
+
+        bytes32 r;
