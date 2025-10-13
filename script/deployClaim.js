@@ -26,3 +26,8 @@ async function main() {
     }
     if (!ethers.isAddress(backendWallet)) {
         throw new Error("Invalid BACKEND_WALLET address");
+    }
+
+    console.log("\nDeployment parameters:");
+    console.log("  Token Address:", tokenAddress);
+    console.log("  Backend Wallet:", backendWallet);
