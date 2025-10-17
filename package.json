@@ -20,3 +20,6 @@
     "erc20",
     "token-claim",
     "signature-verification",
+    "hardhat",
+    "defi"
+  ],
