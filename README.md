@@ -147,3 +147,24 @@ The test suite includes comprehensive coverage for:
 
 Run tests with:
 ```bash
+npm test
+```
+
+## 🚢 Deployment
+
+### Step-by-Step Deployment
+
+1. **Prepare Environment**:
+   - Ensure `.env` file is configured
+   - Fund deployer account with ETH for gas
+
+2. **Deploy Contract**:
+   ```bash
+   npm run deploy:sepolia  # For testnet
+   # or
+   npm run deploy:mainnet  # For mainnet
+   ```
+
+3. **Verify Contract**:
+   ```bash
+   npx hardhat verify --network sepolia <contract_address> <token_address> <backend_wallet>
