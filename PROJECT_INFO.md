@@ -70,3 +70,13 @@ claim_contract/
 │   └── MockERC20.sol      # Mock token for testing
 ├── test/
 │   └── Claim.test.js      # Comprehensive test suite
+├── script/
+│   └── deployClaim.js     # Deployment script
+├── hardhat.config.js      # Hardhat configuration
+├── package.json           # Dependencies and scripts
+└── README.md              # Project documentation
+```
+
+## 🚀 Quick Start Commands
+
+```bash
