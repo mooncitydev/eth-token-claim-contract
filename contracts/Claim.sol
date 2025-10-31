@@ -151,3 +151,25 @@ contract Claim is Ownable, ReentrancyGuard {
         require(signature.length == 65, "Invalid signature length");
 
         bytes32 r;
+        bytes32 s;
+        uint8 v;
+
+        assembly {
+            r := mload(add(signature, 0x20))
+            s := mload(add(signature, 0x40))
+            v := byte(0, mload(add(signature, 0x60)))
+        }
+
+        return ecrecover(hash, v, r, s);
+    }
+
+    // View functions
+
+    /**
+     * @dev Check if a signature has been used
+     * @param recipient Recipient address
+     * @param amount Amount
+     * @param nonce Nonce
+     * @param deadline Deadline
+     * @return bool True if signature is used
+     */
