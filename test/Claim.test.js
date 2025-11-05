@@ -183,3 +183,29 @@ describe("Claim Contract", function () {
                 ["address", "uint256", "uint256", "uint256"],
                 [user.address, amount, nonce, deadline]
             );
+            const messageHash = ethers.keccak256(packedData);
+            const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
+
+            await expect(
+                claim.connect(user).claimTokens(amount, nonce, deadline, signature)
+            ).to.be.revertedWith("Insufficient contract balance");
+        });
+    });
+
+    describe("View Functions", function () {
+        it("Should correctly check if signature is used", async function () {
+            const { claim, backendWallet, user } = await loadFixture(deployClaimFixture);
+            
+            const amount = ethers.parseUnits("100", 18);
+            const nonce = 7;
+            const deadline = Math.floor(Date.now() / 1000) + 3600;
+
+            // Check before claiming
+            expect(await claim.isSignatureUsed(user.address, amount, nonce, deadline)).to.be.false;
+
+            const packedData = ethers.solidityPacked(
+                ["address", "uint256", "uint256", "uint256"],
+                [user.address, amount, nonce, deadline]
+            );
+            const messageHash = ethers.keccak256(packedData);
+            const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
