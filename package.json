@@ -23,3 +23,7 @@
     "hardhat",
     "defi"
   ],
+  "author": "moooncity",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
