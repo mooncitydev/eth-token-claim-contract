@@ -168,3 +168,25 @@ npm test
 3. **Verify Contract**:
    ```bash
    npx hardhat verify --network sepolia <contract_address> <token_address> <backend_wallet>
+   ```
+
+4. **Fund Contract**:
+   Transfer ERC20 tokens to the deployed contract address for users to claim.
+
+## 📝 Contract Functions
+
+### Public Functions
+
+#### `claimTokens(uint256 amount, uint256 nonce, uint256 deadline, bytes memory signature)`
+Claims tokens using a backend-signed message.
+
+**Parameters:**
+- `amount`: Amount of tokens to claim
+- `nonce`: Unique nonce for this claim
+- `deadline`: Signature expiration timestamp
+- `signature`: Backend signature
+
+**Requirements:**
+- Signature must not be expired
+- Signature must not have been used before
+- Contract must have sufficient balance
