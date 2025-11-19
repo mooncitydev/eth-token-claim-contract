@@ -80,3 +80,14 @@ claim_contract/
 ## 🚀 Quick Start Commands
 
 ```bash
+# Install dependencies
+npm install
+
+# Compile contracts
+npm run compile
+
+# Run tests
+npm test
+
+# Deploy to Sepolia testnet
+npm run deploy:sepolia
