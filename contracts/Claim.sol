@@ -173,3 +173,25 @@ contract Claim is Ownable, ReentrancyGuard {
      * @param deadline Deadline
      * @return bool True if signature is used
      */
+    function isSignatureUsed(
+        address recipient,
+        uint256 amount,
+        uint256 nonce,
+        uint256 deadline
+    ) external view returns (bool) {
+        ClaimData memory claimData = ClaimData({
+            recipient: recipient,
+            amount: amount,
+            nonce: nonce,
+            deadline: deadline
+        });
+
+        bytes32 messageHash = _getMessageHash(claimData);
+        return usedSignatures[messageHash];
+    }
+
+    /**
+     * @dev Verify a signature without executing (for testing)
+     * @param recipient Recipient address
+     * @param amount Amount
+     * @param nonce Nonce
