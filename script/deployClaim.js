@@ -35,3 +35,8 @@ async function main() {
     // Deploy contract
     console.log("\nDeploying Claim contract...");
     const Claim = await ethers.getContractFactory("Claim");
+    const claim = await Claim.deploy(tokenAddress, backendWallet);
+
+    await claim.waitForDeployment();
+    const contractAddress = await claim.getAddress();
+
