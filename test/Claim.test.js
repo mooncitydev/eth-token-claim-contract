@@ -209,3 +209,29 @@ describe("Claim Contract", function () {
             );
             const messageHash = ethers.keccak256(packedData);
             const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
+
+            // Claim tokens
+            await claim.connect(user).claimTokens(amount, nonce, deadline, signature);
+
+            // Check after claiming
+            expect(await claim.isSignatureUsed(user.address, amount, nonce, deadline)).to.be.true;
+        });
+
+        it("Should correctly verify signature", async function () {
+            const { claim, backendWallet, user } = await loadFixture(deployClaimFixture);
+            
+            const amount = ethers.parseUnits("100", 18);
+            const nonce = 8;
+            const deadline = Math.floor(Date.now() / 1000) + 3600;
+
+            const packedData = ethers.solidityPacked(
+                ["address", "uint256", "uint256", "uint256"],
+                [user.address, amount, nonce, deadline]
+            );
+            const messageHash = ethers.keccak256(packedData);
+            const signature = await backendWallet.signMessage(ethers.getBytes(messageHash));
+
+            expect(await claim.verifySignature(user.address, amount, nonce, deadline, signature)).to.be.true;
+        });
+
+        it("Should return contract balance", async function () {
