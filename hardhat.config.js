@@ -14,3 +14,5 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       gasPrice: 20000000000, // 20 gwei - adjust based on current gas prices
     }
+  },
+  etherscan: {
