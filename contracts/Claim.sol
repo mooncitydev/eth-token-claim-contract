@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 contract Claim is Ownable, ReentrancyGuard {
+    using SafeERC20 for IERC20;
+
     // The ERC20 token to be transferred
     IERC20 public token;
 
@@ -85,8 +88,8 @@ contract Claim is Ownable, ReentrancyGuard {
             "Insufficient contract balance"
         );
 
-        // Transfer tokens
-        require(token.transfer(msg.sender, amount), "Token transfer failed");
+        // Transfer tokens using SafeERC20
+        token.safeTransfer(msg.sender, amount);
 
         emit TokensClaimed(msg.sender, amount, messageHash);
     }
@@ -246,7 +249,7 @@ contract Claim is Ownable, ReentrancyGuard {
      * @param amount Amount to withdraw
      */
     function emergencyWithdraw(uint256 amount) external onlyOwner {
-        require(token.transfer(owner(), amount), "Transfer failed");
+        token.safeTransfer(owner(), amount);
     }
 
     /**

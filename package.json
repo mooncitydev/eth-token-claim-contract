@@ -1,20 +1,39 @@
 {
-  "name": "humanxo_contract",
-  "version": "1.0.0",
+  "name": "token-claim-contract",
+  "version": "2.0.0",
+  "description": "Secure ERC20 token claim contract with signature-based authentication",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "deploy:sepolia": "hardhat run script/deployClaim.js --network sepolia",
+    "deploy:mainnet": "hardhat run script/deployClaim.js --network mainnet",
+    "verify": "hardhat verify --network",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "ethereum",
+    "solidity",
+    "smart-contracts",
+    "erc20",
+    "token-claim",
+    "signature-verification",
+    "hardhat",
+    "defi"
+  ],
+  "author": "moooncity",
+  "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "hardhat": "^2.24.1"
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "hardhat": "^2.24.1",
+    "chai": "^4.3.10",
+    "ethers": "^6.13.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
     "dotenv": "^16.5.0"
   }
 }
