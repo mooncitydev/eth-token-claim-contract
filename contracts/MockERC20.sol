@@ -17,3 +17,6 @@ contract MockERC20 is ERC20 {
     }
 
     /**
+     * @dev Mint tokens to an address (for testing)
+     */
+    function mint(address to, uint256 amount) external {
