@@ -190,3 +190,24 @@ Claims tokens using a backend-signed message.
 - Signature must not be expired
 - Signature must not have been used before
 - Contract must have sufficient balance
+- Signature must be valid
+
+### View Functions
+
+#### `isSignatureUsed(address recipient, uint256 amount, uint256 nonce, uint256 deadline)`
+Checks if a signature has already been used.
+
+#### `verifySignature(address recipient, uint256 amount, uint256 nonce, uint256 deadline, bytes memory signature)`
+Verifies a signature without executing the claim.
+
+#### `getContractBalance()`
+Returns the current token balance of the contract.
+
+### Admin Functions (Owner Only)
+
+#### `updateTokenAddress(address _newToken)`
+Updates the token contract address.
+
+#### `updateBackendWallet(address _newBackendWallet)`
+Updates the backend wallet address that signs messages.
+
