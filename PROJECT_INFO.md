@@ -91,3 +91,13 @@ npm test
 
 # Deploy to Sepolia testnet
 npm run deploy:sepolia
+
+# Deploy to Mainnet
+npm run deploy:mainnet
+```
+
+## 📋 Environment Variables Required
+
+- `PRIVATE_KEY`: Deployer wallet private key
+- `INFURA_PROJECT_ID`: Infura RPC endpoint
+- `ETHERSCAN_API_KEY`: For contract verification
