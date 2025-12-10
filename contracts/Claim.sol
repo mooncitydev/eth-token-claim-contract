@@ -195,3 +195,25 @@ contract Claim is Ownable, ReentrancyGuard {
      * @param recipient Recipient address
      * @param amount Amount
      * @param nonce Nonce
+     * @param deadline Deadline
+     * @param signature Signature to verify
+     * @return bool True if signature is valid
+     */
+    function verifySignature(
+        address recipient,
+        uint256 amount,
+        uint256 nonce,
+        uint256 deadline,
+        bytes memory signature
+    ) external view returns (bool) {
+        ClaimData memory claimData = ClaimData({
+            recipient: recipient,
+            amount: amount,
+            nonce: nonce,
+            deadline: deadline
+        });
+
+        bytes32 messageHash = _getMessageHash(claimData);
+        return _verifySignature(messageHash, signature);
+    }
+
