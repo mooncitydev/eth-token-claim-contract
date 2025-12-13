@@ -40,3 +40,7 @@ async function main() {
     await claim.waitForDeployment();
     const contractAddress = await claim.getAddress();
 
+    console.log("\n✅ Claim contract deployed successfully!");
+    console.log("  Contract Address:", contractAddress);
+    console.log("\nTo verify the contract, run:");
+    console.log(`  npx hardhat verify --network <network> ${contractAddress} ${tokenAddress} ${backendWallet}`);
