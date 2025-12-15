@@ -235,3 +235,30 @@ describe("Claim Contract", function () {
         });
 
         it("Should return contract balance", async function () {
+            const { claim, token } = await loadFixture(deployClaimFixture);
+            const balance = await token.balanceOf(await claim.getAddress());
+            expect(await claim.getContractBalance()).to.equal(balance);
+        });
+    });
+
+    describe("Admin Functions", function () {
+        it("Should allow owner to update token address", async function () {
+            const { claim, owner } = await loadFixture(deployClaimFixture);
+            
+            // Deploy new token
+            const MockERC20 = await ethers.getContractFactory("MockERC20");
+            const newToken = await MockERC20.deploy("New Token", "NEW", ethers.parseUnits("1000000", 18));
+            await newToken.waitForDeployment();
+
+            const oldToken = await claim.token();
+            
+            await expect(claim.connect(owner).updateTokenAddress(await newToken.getAddress()))
+                .to.emit(claim, "TokenAddressUpdated")
+                .withArgs(oldToken, await newToken.getAddress());
+
+            expect(await claim.token()).to.equal(await newToken.getAddress());
+        });
+
+        it("Should allow owner to update backend wallet", async function () {
+            const { claim, owner, otherUser } = await loadFixture(deployClaimFixture);
+            
