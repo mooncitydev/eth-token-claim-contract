@@ -211,3 +211,24 @@ Updates the token contract address.
 #### `updateBackendWallet(address _newBackendWallet)`
 Updates the backend wallet address that signs messages.
 
+#### `emergencyWithdraw(uint256 amount)`
+Withdraws tokens from the contract (owner only).
+
+## 🔐 Security Considerations
+
+1. **Backend Wallet Security**: The backend wallet private key must be kept secure. Compromise of this key allows unauthorized token claims.
+
+2. **Nonce Management**: Ensure nonces are unique and properly tracked on the backend to prevent signature reuse.
+
+3. **Deadline Management**: Set appropriate deadlines for signatures to balance security and user experience.
+
+4. **Token Funding**: Only fund the contract with tokens that users are eligible to claim.
+
+5. **Access Control**: The owner address should be a multisig wallet for production deployments.
+
+6. **Signature Format**: Backend must use the exact same message format as the contract:
+   ```solidity
+   keccak256(abi.encodePacked(recipient, amount, nonce, deadline))
+   ```
+
+## 📄 License
