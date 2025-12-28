@@ -101,3 +101,13 @@ npm run deploy:mainnet
 - `PRIVATE_KEY`: Deployer wallet private key
 - `INFURA_PROJECT_ID`: Infura RPC endpoint
 - `ETHERSCAN_API_KEY`: For contract verification
+- `TOKEN_CONTRACT`: ERC20 token address
+- `BACKEND_WALLET`: Wallet address that signs claim messages
+
+## 🔐 Security Highlights
+
+- ✅ ReentrancyGuard protection
+- ✅ SafeERC20 for token transfers
+- ✅ Signature verification using EIP-191
+- ✅ Zero address validation
+- ✅ Access control with Ownable
