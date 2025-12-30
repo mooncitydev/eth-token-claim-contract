@@ -217,3 +217,25 @@ contract Claim is Ownable, ReentrancyGuard {
         return _verifySignature(messageHash, signature);
     }
 
+    // Admin functions
+    /**
+     * @dev Update token address
+     * @param _newToken New token contract address
+     */
+    function updateTokenAddress(address _newToken) external onlyOwner {
+        require(_newToken != address(0), "Invalid token address");
+
+        address oldToken = address(token);
+        token = IERC20(_newToken);
+
+        emit TokenAddressUpdated(oldToken, _newToken);
+    }
+
+    /**
+     * @dev Update backend wallet address
+     * @param _newBackendWallet New backend wallet address
+     */
+    function updateBackendWallet(address _newBackendWallet) external onlyOwner {
+        require(_newBackendWallet != address(0), "Invalid address");
+
+        address oldWallet = backendWallet;
