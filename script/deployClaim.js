@@ -44,3 +44,8 @@ async function main() {
     console.log("  Contract Address:", contractAddress);
     console.log("\nTo verify the contract, run:");
     console.log(`  npx hardhat verify --network <network> ${contractAddress} ${tokenAddress} ${backendWallet}`);
+}
+
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
