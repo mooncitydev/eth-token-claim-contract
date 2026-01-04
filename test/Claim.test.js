@@ -262,3 +262,29 @@ describe("Claim Contract", function () {
         it("Should allow owner to update backend wallet", async function () {
             const { claim, owner, otherUser } = await loadFixture(deployClaimFixture);
             
+            const oldWallet = await claim.backendWallet();
+            
+            await expect(claim.connect(owner).updateBackendWallet(otherUser.address))
+                .to.emit(claim, "BackendWalletUpdated")
+                .withArgs(oldWallet, otherUser.address);
+
+            expect(await claim.backendWallet()).to.equal(otherUser.address);
+        });
+
+        it("Should allow owner to emergency withdraw", async function () {
+            const { claim, token, owner } = await loadFixture(deployClaimFixture);
+            
+            const withdrawAmount = ethers.parseUnits("1000", 18);
+            const initialOwnerBalance = await token.balanceOf(owner.address);
+            const initialContractBalance = await token.balanceOf(await claim.getAddress());
+
+            await claim.connect(owner).emergencyWithdraw(withdrawAmount);
+
+            expect(await token.balanceOf(owner.address)).to.equal(initialOwnerBalance + withdrawAmount);
+            expect(await token.balanceOf(await claim.getAddress())).to.equal(initialContractBalance - withdrawAmount);
+        });
+
+        it("Should revert admin functions if called by non-owner", async function () {
+            const { claim, user, otherUser } = await loadFixture(deployClaimFixture);
+            
+            await expect(
