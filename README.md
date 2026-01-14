@@ -232,3 +232,24 @@ Withdraws tokens from the contract (owner only).
    ```
 
 ## 📄 License
+
+This project is licensed under the MIT License.
+
+## 📞 Contact
+
+**Telegram**: [@moooncity](https://t.me/moooncity)
+
+For questions, support, or collaboration opportunities, feel free to reach out via Telegram.
+
+---
+
+## 🔗 Additional Resources
+
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts)
+- [Hardhat Documentation](https://hardhat.org/docs)
+- [EIP-191: Signed Data Standard](https://eips.ethereum.org/EIPS/eip-191)
+- [ERC-20 Token Standard](https://eips.ethereum.org/EIPS/eip-20)
+
+---
+
+**Built with ❤️ using Solidity, Hardhat, and OpenZeppelin**
