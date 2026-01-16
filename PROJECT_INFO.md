@@ -111,3 +111,13 @@ npm run deploy:mainnet
 - ✅ Signature verification using EIP-191
 - ✅ Zero address validation
 - ✅ Access control with Ownable
+- ✅ Comprehensive test coverage
+
+## 📞 Contact
+
+**Telegram**: [@moooncity](https://t.me/moooncity)
+
+---
+
+*This project has been modernized and updated to use the latest OpenZeppelin patterns and best practices.*
+
