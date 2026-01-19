@@ -239,3 +239,24 @@ contract Claim is Ownable, ReentrancyGuard {
         require(_newBackendWallet != address(0), "Invalid address");
 
         address oldWallet = backendWallet;
+        backendWallet = _newBackendWallet;
+
+        emit BackendWalletUpdated(oldWallet, _newBackendWallet);
+    }
+
+    /**
+     * @dev Emergency withdraw tokens
+     * @param amount Amount to withdraw
+     */
+    function emergencyWithdraw(uint256 amount) external onlyOwner {
+        token.safeTransfer(owner(), amount);
+    }
+
+    /**
+     * @dev Get contract token balance
+     * @return uint256 Token balance
+     */
+    function getContractBalance() external view returns (uint256) {
+        return token.balanceOf(address(this));
+    }
+}
