@@ -288,3 +288,29 @@ describe("Claim Contract", function () {
             const { claim, user, otherUser } = await loadFixture(deployClaimFixture);
             
             await expect(
+                claim.connect(user).updateTokenAddress(otherUser.address)
+            ).to.be.revertedWithCustomError(claim, "OwnableUnauthorizedAccount");
+
+            await expect(
+                claim.connect(user).updateBackendWallet(otherUser.address)
+            ).to.be.revertedWithCustomError(claim, "OwnableUnauthorizedAccount");
+
+            await expect(
+                claim.connect(user).emergencyWithdraw(ethers.parseUnits("100", 18))
+            ).to.be.revertedWithCustomError(claim, "OwnableUnauthorizedAccount");
+        });
+
+        it("Should revert if updating to zero address", async function () {
+            const { claim, owner } = await loadFixture(deployClaimFixture);
+            
+            await expect(
+                claim.connect(owner).updateTokenAddress(ethers.ZeroAddress)
+            ).to.be.revertedWith("Invalid token address");
+
+            await expect(
+                claim.connect(owner).updateBackendWallet(ethers.ZeroAddress)
+            ).to.be.revertedWith("Invalid address");
+        });
+    });
+});
+
